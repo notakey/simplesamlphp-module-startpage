@@ -1,7 +1,9 @@
 <?php
 
 $config = SimpleSAML_Configuration::getInstance();
+$spconfig = \SimpleSAML_Configuration::getOptionalConfig( 'module_startpage.php' );
 
+$copts = [ 's:pageTitle', 's:pageSubtitle', 'b:showLogout', 's:forgotPasswordUrl', 's:helpUrl' ];
 
 $t = new SimpleSAML_XHTML_Template($config, 'startpage:splist.tpl.php');
 $t->data['header'] = $t->t('{startpage:startpage:splist_header}');
@@ -10,6 +12,21 @@ $t->data['pageid'] = 'splist';
 $t->data['head']  = '<link rel="stylesheet" type="text/css" href="/'. $t->data['baseurlpath']. 'module/startpage/resources/style.css" />';
 
 $t->data['spl'] = array();
+
+$t->data['config'] = array();
+
+foreach($copts as $c){
+    list($dataType, $confOpt) = explode(':', $c, 2);
+    switch($dataType){
+        case "s":
+            $t->data['config'][$confOpt] = $spconfig->getString($confOpt, "");
+            break;
+        case "b":
+            $t->data['config'][$confOpt] = $spconfig->getBoolean($confOpt, "");
+            break;
+    }
+
+}
 
 $metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
 

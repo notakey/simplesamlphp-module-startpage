@@ -3,7 +3,9 @@
 
 $this->includeAtTemplateBase('includes/header.php');
 ?>
-<!--  <h2><?php echo $this->t('{startpage:startpage:block_header}'); ?></h2> -->
+<?php if($this->data['config']['pageTitle'] != ''){?><h2 style="break: both"><?php echo $this->data['config']['pageTitle']; ?></h2><?php } ?>
+<?php if($this->data['config']['pageSubtitle'] != ''){?><p><?php echo $this->data['config']['pageSubtitle']; ?></p><?php } ?>
+
 <div id="sp-listing">
 	<?php foreach($this->data['spl'] as $sp){ ?>
 	<div class="sp-block">
@@ -20,6 +22,8 @@ $this->includeAtTemplateBase('includes/header.php');
 
 </div>
 <div style="clear:both;"></div>
+
+
 <?php
 
 
