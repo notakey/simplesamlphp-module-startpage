@@ -36,7 +36,7 @@ foreach($metaentries as $spentityid=>$c){
 	// TODO
 	// Fix to be multilang compatible
 	if(is_array($c['name'])){
-		$name = $c['name']['en'];
+		$name = array_pop($c['name']);
 	}else{
 		$name = $c['name'];
 	}
