@@ -33,22 +33,22 @@ $metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
 $metaentries = array_merge($metadata->getList('saml20-sp-remote'), $metadata->getList('shib13-sp-remote'), $metadata->getList('adfs-sp-remote'));
 
 foreach($metaentries as $spentityid=>$c){
-	if(empty($c['startpage.logo'])){
-		continue;
-	}
-
 	// TODO
 	// Fix to be multilang compatible
 	if(is_array($c['name'])){
-		$name = $c['name']['en'];
+		$name = array_pop($c['name']);
 	}else{
 		$name = $c['name'];
 	}
 
 	if(is_array($c['startpage.logo'])){
-		$logo = $c['startpage.logo']['en'];
+		$logo = '/userlogos/'.$c['startpage.logo']['en'];
 	}else{
-		$logo = $c['startpage.logo'];
+        if(isset($c['startpage.logo']) && !empty($c['startpage.logo']) && $c['startpage.logo'] != 'nologo.png'){
+            $logo = '/userlogos/'.$c['startpage.logo'];
+        }else{
+            $logo = '/sso/module.php/startpage/resources/sad_cat_sso.png';
+        }
 	}
 
 	$t->data['spl'][] = array('link' => $c['startpage.link'], 'name' => $name, 'logo' => $logo);
