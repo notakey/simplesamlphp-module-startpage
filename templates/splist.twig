@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% set moduleurlpath = '/' ~  baseurlpath ~ 'module.php/startpage/' %}
+
+{% block preload %}
+	<link rel="stylesheet" type="text/css" href="/{{ baseurlpath }}module.php/startpage/resources/style.css">
+{% endblock %}
+
+{% block content %}
+
+	{% if config.pageTitle != '' %}
+		<h2 style="break: both">{{ config.pageTitle }}</h2>
+	{% else %}
+		<h2 style="break: both">{{ header }}</h2>
+	{% endif %}
+
+	{% if config.pageSubtitle != '' %}
+		<p>{{ config.pageSubtitle }}</p>
+	{% endif %}
+
+
+	<div id="sp-listing">
+
+
+		{% for sp in spl %}
+			<div class="sp-block">
+				<div class="sp-block-image">
+					<a class="sp-block-image-link" href="{{ sp.link }}">
+						<img src="{{ sp.logo }}">
+					</a>
+				</div>
+				<div class="sp-block-title">
+					{{ sp.name }}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div style="clear:both;"></div>
+{% endblock %}

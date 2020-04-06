@@ -1,11 +1,12 @@
 <?php
 
-$config = SimpleSAML_Configuration::getInstance();
-$spconfig = \SimpleSAML_Configuration::getOptionalConfig('module_startpage.php');
+
+$config = \SimpleSAML\Configuration::getInstance();
+$spconfig = \SimpleSAML\Configuration::getOptionalConfig('module_startpage.php');
 
 $copts = ['s:pageTitle', 's:pageSubtitle', 'b:showLogout', 's:forgotPasswordUrl', 's:helpUrl'];
 
-$t = new SimpleSAML_XHTML_Template($config, 'startpage:splist.tpl.php');
+$t = new \SimpleSAML\XHTML\Template($config, 'startpage:splist.tpl.php');
 $t->data['header'] = $t->t('{startpage:startpage:splist_header}');
 $t->data['pageid'] = 'splist';
 
@@ -27,7 +28,7 @@ foreach ($copts as $c) {
     }
 }
 
-$metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
+$metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 
 $metaentries = array_merge($metadata->getList('saml20-sp-remote'), $metadata->getList('shib13-sp-remote'), $metadata->getList('adfs-sp-remote'));
 
