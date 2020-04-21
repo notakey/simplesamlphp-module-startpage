@@ -9,11 +9,11 @@
 
 
 .sp-block {
-    border: 1px solid rgba(23,46,88,0.3137254901960784);
-	cursor: pointer;
+    border: 1px solid rgba(23, 46, 88, 0.3137254901960784);
+    cursor: pointer;
     transition-duration: 200ms;
     transition-property: transform, border, box-shadow, margin, opacity, width;
-    background: rgb(242,242,242);
+    background: rgb(242, 242, 242);
     border-radius: 2px;
     box-sizing: border-box;
     display: inline-block;
@@ -28,7 +28,7 @@
     position: relative;
     vertical-align: top;
     white-space: nowrap;
-    width: calc(1110px / 4 - 20px );
+    width: calc(1110px / 4 - 20px);
 }
 
 .sp-block-image {
@@ -42,7 +42,7 @@
 }
 
 .sp-block-title {
-	-webkit-mask-image: linear-gradient(to right, #000, #000, 120px, transparent);
+    /* -webkit-mask-image: linear-gradient(to right, #000, #000, 120px, transparent); */
     border: none;
     height: 35px;
     overflow: hidden;
@@ -50,17 +50,26 @@
     position: absolute;
     text-overflow: clip;
     top: 10px;
-    width: calc(1110px / 4 - 24px );
+    width: calc(1110px / 4 - 24px);
     font-size: 1.1rem;
     text-align: -webkit-left;
 }
 
-.sp-block-image-link {
-	
+/* .sp-block-title:hover {
+    -webkit-mask-image: none;
+} */
+
+.sp-block-image:hover {
+    -webkit-mask-image: none;
+}
+
+.sp-block-image-link:hover {
+    text-decoration: none;
+    background-color: transparent;
 }
 
 .sp-block-image-link img {
-	width: calc(1110px / 4 - 30px );
-	height: auto;
-	max-height: calc(130px - 50px);;
+    width: calc(1110px / 4 - 30px);
+    height: auto;
+    max-height: calc(130px - 50px);
 }
