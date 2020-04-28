@@ -1,0 +1,3 @@
+startpage-splist:
+    path:       /splist
+    defaults:   { _controller: 'SimpleSAML\Module\startpage\Controller::splist' }
