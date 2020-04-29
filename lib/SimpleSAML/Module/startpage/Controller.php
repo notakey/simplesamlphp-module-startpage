@@ -37,7 +37,7 @@ class Controller
     {
         $copts = ['s:pageTitle', 's:pageSubtitle', 'b:showLogout', 's:forgotPasswordUrl', 's:helpUrl'];
 
-        $t = new Template($this->config, 'startpage:splist.tpl.php');
+        $t = new Template($this->config, 'startpage:splist');
         $t->data['header'] = $t->t('{startpage:startpage:splist_header}');
         $t->data['pageid'] = 'splist';
 
