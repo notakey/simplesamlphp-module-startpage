@@ -3,6 +3,9 @@
 $config = \SimpleSAML\Configuration::getInstance();
 $spconfig = \SimpleSAML\Configuration::getOptionalConfig('module_startpage.php');
 
+
+\SimpleSAML\Session::useTransientSession();
+
 $copts = ['s:pageTitle', 's:pageSubtitle', 'b:showLogout', 's:forgotPasswordUrl', 's:helpUrl'];
 
 $t = new \SimpleSAML\XHTML\Template($config, 'startpage:splist.tpl.php');
