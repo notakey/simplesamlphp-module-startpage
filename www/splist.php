@@ -3,12 +3,43 @@
 $config = \SimpleSAML\Configuration::getInstance();
 $spconfig = \SimpleSAML\Configuration::getOptionalConfig('module_startpage.php');
 
-
-\SimpleSAML\Session::useTransientSession();
-
-$copts = ['s:pageTitle', 's:pageSubtitle', 'b:showLogout', 's:forgotPasswordUrl', 's:helpUrl'];
-
+$metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 $t = new \SimpleSAML\XHTML\Template($config, 'startpage:splist.tpl.php');
+
+if ($spconfig->getBoolean('authenticate', true)) {
+    $idp_array = $metadata->getList('saml20-idp-hosted');
+
+    $auth_source = '';
+    $userid_attr = '';
+
+    foreach ($idp_array as $idp) {
+        if ($idp['host'] == '__DEFAULT__') {
+            $auth_source = $idp['auth'];
+            $userid_attr = $idp['userid.attribute'];
+        }
+    }
+
+    if (empty($auth_source)) {
+        throw new \Exception('Missing default IdP configuration');
+    }
+
+    $auth = new \SimpleSAML\Auth\Simple($auth_source);
+    $auth->requireAuth();
+
+    $attributes = $auth->getAttributes();
+    if (!isset($attributes[$userid_attr])) {
+        throw new \Exception('Invalid default IdP configuration');
+    }
+
+    $t->data['logout_url'] = $auth->getLogoutURL();
+    $t->data['username'] = $attributes[$userid_attr][0];
+}
+
+// \SimpleSAML\Session::useTransientSession();
+
+$copts = ['s:pageTitle', 's:pageSubtitle', 'b:showLogout', 's:forgotPasswordUrl', 's:helpUrl', 'b:authenticate'];
+
+
 $t->data['header'] = $t->t('{startpage:startpage:splist_header}');
 $t->data['pageid'] = 'splist';
 
@@ -25,12 +56,12 @@ foreach ($copts as $c) {
             $t->data['config'][$confOpt] = $spconfig->getString($confOpt, "");
             break;
         case "b":
-            $t->data['config'][$confOpt] = $spconfig->getBoolean($confOpt, "");
+            $t->data['config'][$confOpt] = $spconfig->getBoolean($confOpt, false);
             break;
     }
 }
 
-$metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
+
 
 $metaentries = array_merge($metadata->getList('saml20-sp-remote'), $metadata->getList('shib13-sp-remote'), $metadata->getList('adfs-sp-remote'));
 

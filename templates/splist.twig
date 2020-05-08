@@ -8,18 +8,27 @@
 
 {% block content %}
 
-	{% if config.pageTitle != '' %}
-		<h2 style="break: both">{{ config.pageTitle }}</h2>
-	{% endif %}
+	<h2 style="break: both">
+		{% if config.pageTitle != '' %}
+			{{ config.pageTitle }}
+		{% else %}
+			{{ '{startpage:startpage:splist_header}' | trans }}
+		{% endif %}
+	</h2>
 
 	{% if config.pageSubtitle != '' %}
 		<p>{{ config.pageSubtitle }}</p>
 	{% endif %}
 
+	{% if config.showLogout %}
+
+		<div id="sp-logout">
+			<a href="{{ logout_url | raw }}">{{ startpage:startpage:logout | trans }}
+				{{ username }}</a>
+		</div>
+	{% endif %}
 
 	<div id="sp-listing">
-
-
 		{% for sp in spl %}
 			<div class="sp-block">
 				<div class="sp-block-image">

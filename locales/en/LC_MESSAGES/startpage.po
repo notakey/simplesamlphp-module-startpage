@@ -14,8 +14,15 @@ msgstr ""
 "Last-Translator: \n"
 "Language: en\n"
 
-msgid "{startpage:splist_header}"
-msgstr "Available applications"
 
 msgid "Available applications"
 msgstr "Available applications"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "{startpage:splist_header}"
+msgstr "Available applications"
+
+msgid "{startpage:logout}"
+msgstr "Logout"
