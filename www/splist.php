@@ -10,12 +10,14 @@ if ($spconfig->getBoolean('authenticate', true)) {
     $idp_array = $metadata->getList('saml20-idp-hosted');
 
     $auth_source = '';
-    $userid_attr = '';
+    $userid_attr = 'uid';
 
     foreach ($idp_array as $idp) {
         if ($idp['host'] == '__DEFAULT__') {
             $auth_source = $idp['auth'];
-            $userid_attr = $idp['userid.attribute'];
+            if (isset($idp['userid.attribute'])) {
+                $userid_attr = $idp['userid.attribute'];
+            }
         }
     }
 
