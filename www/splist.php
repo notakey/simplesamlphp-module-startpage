@@ -35,6 +35,10 @@ $metadata = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 $metaentries = array_merge($metadata->getList('saml20-sp-remote'), $metadata->getList('shib13-sp-remote'), $metadata->getList('adfs-sp-remote'));
 
 foreach ($metaentries as $spentityid => $c) {
+    if (!isset($c['startpage.link'])) {
+        continue;
+    }
+
     // TODO
     // Fix to be multilang compatible
     if (is_array($c['name'])) {
