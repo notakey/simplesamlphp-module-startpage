@@ -1,46 +1,42 @@
+{% set pagetitle = 'Available applications'|trans %}
 {% extends "base.twig" %}
 
-{% set moduleurlpath = '/' ~  baseurlpath ~ 'module.php/startpage/' %}
-
 {% block preload %}
-	<link rel="stylesheet" type="text/css" href="/{{ baseurlpath }}module.php/startpage/resources/style.css">
+    <link rel="stylesheet" href="{{ asset('resources/style.css', 'startpage') }}">
 {% endblock %}
 
 {% block content %}
+    <h2 class="sp-header">
+        {% if config.pageTitle != '' %}
+            {{ config.pageTitle }}
+        {% else %}
+            {{ 'Available applications'|trans }}
+        {% endif %}
+    </h2>
 
-	<h2 style="break: both">
-		{% if config.pageTitle != '' %}
-			{{ config.pageTitle }}
-		{% else %}
-			{{ '{startpage:startpage:splist_header}' | trans }}
-		{% endif %}
-	</h2>
+    {% if config.pageSubtitle != '' %}
+        <p>{{ config.pageSubtitle }}</p>
+    {% endif %}
 
-	{% if config.pageSubtitle != '' %}
-		<p>{{ config.pageSubtitle }}</p>
-	{% endif %}
+    {% if config.showLogout and logout_url %}
+        <div id="sp-logout">
+            <a href="{{ logout_url }}">{{ 'Logout'|trans }} {{ username }}</a>
+        </div>
+    {% endif %}
 
-	{% if config.showLogout %}
-
-		<div id="sp-logout">
-			<a href="{{ logout_url | raw }}">{{ startpage:startpage:logout | trans }}
-				{{ username }}</a>
-		</div>
-	{% endif %}
-
-	<div id="sp-listing">
-		{% for sp in spl %}
-			<div class="sp-block">
-				<div class="sp-block-image">
-					<a class="sp-block-image-link" href="{{ sp.link }}">
-						<img src="{{ sp.logo }}">
-					</a>
-				</div>
-				<div class="sp-block-title">
-					{{ sp.name }}
-				</div>
-			</div>
-		{% endfor %}
-	</div>
-	<div style="clear:both;"></div>
+    <div id="sp-listing">
+        {% for sp in spl %}
+            <div class="sp-block">
+                <div class="sp-block-image">
+                    <a class="sp-block-image-link" href="{{ sp.link }}">
+                        <img src="{{ sp.logo }}" alt="{{ sp.name }}">
+                    </a>
+                </div>
+                <div class="sp-block-title">
+                    {{ sp.name }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="sp-clear"></div>
 {% endblock %}
