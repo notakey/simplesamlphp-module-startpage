@@ -77,3 +77,10 @@
     height: auto;
     max-height: calc(130px - 50px);
 }
+.sp-header {
+    break-after: auto;
+}
+
+.sp-clear {
+    clear: both;
+}
